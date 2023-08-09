@@ -10,11 +10,36 @@
 	"supports": {
 		"html": false
 	},
-	"attributes": {
-		"backgroundImage": {
+	"attributes":  {
+		"verticalAlignment": {
 			"type": "string",
-			"default": ""
-		  }
+			"default": "center"
+		  },
+		"textSection": {
+		  "type": "string",
+		  "default": ""
+		},
+		"hoursOfOperation": {
+		  "type": "string",
+		  "default": ""
+		},
+		"backgroundImage": {
+		  "type": "string",
+		  "default": ""
+		},
+		"mobileBackgroundImage": {
+		  "type": "string",
+		  "default": ""
+		},
+		"ctaButtonText": {
+		  "type": "string",
+		  "default": ""
+		},
+		"ctaButtonAnchor": {
+		  "type": "string",
+		  "default": ""
+		}
+	  
 	},
 	"textdomain": "tempherobanner",
 	"editorScript": "file:./index.js",
