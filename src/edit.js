@@ -48,7 +48,7 @@ import { SelectControl,RangeControl } from '@wordpress/components';
 
 
 export default function Edit({attributes,setAttributes}) {
-	const { RichText } = wp.editor;
+
   const {
 	textSection,
 	hoursOfOperation,
@@ -57,8 +57,20 @@ export default function Edit({attributes,setAttributes}) {
 	ctaButtonText,
 	ctaButtonAnchor,
 	verticalAlignment,
+  gradientColor,
+  textSize,
+  selectedFont,
+  socialMediaButtons,
+  buttonSize,
+  hoursSize,
+  hoursColor,
+  textColor
   } = attributes;
-
+  const textStyle = {
+    fontSize: `${textSize}px`,
+    fontFamily: selectedFont,
+    color: textColor
+  };
   const [socialMediaLinks, setSocialMediaLinks] = useState([]);
 
   // Function to handle image selection for the background images
@@ -81,21 +93,112 @@ export default function Edit({attributes,setAttributes}) {
 	newLinks[index] = link;
 	setSocialMediaLinks(newLinks);
   };
-
-  // Function to save the social media links
-  const saveSocialMediaLinks = () => {
-	apiFetch({
-	  path: '/wp/v2/options',
-	  method: 'POST',
-	  data: {
-		your_plugin_social_media_links: socialMediaLinks,
-	  },
-	});
+  const handleSocialMediaButtonChange = (index, key, value) => {
+    const newButtons = [...attributes.socialMediaButtons];
+    newButtons[index][key] = value;
+    setAttributes({ socialMediaButtons: newButtons });
   };
+  // Function to save the social media links
+  const isMobile = window.innerWidth <= 800; // Adjust the breakpoint as needed
   return (
 		<fragment>
-		<div>
+
+
+<div className="hero-banner" style={{ backgroundImage: `url(${backgroundImage})`}}>
+      {/* Desktop background image */}
+  
+      
+      {/* Background overlay for fading effect */}
+      <div
+    className="hero-banner__background"
+    style={{ backgroundImage: `url(${isMobile ? mobileBackgroundImage : backgroundImage})`}}
+  ></div>
+      <div className="hero-banner__overlay" style={{ backgroundColor: gradientColor }}></div>
+      <div className="hero-banner__social" >
+  {socialMediaButtons.map((button, index) => (
+    <div >
+    <a key={index} href={button.url} className="social-media-link" style={{paddingRight: "5px", height: `${buttonSize}px`,width: `${buttonSize}px` }}>
+      {button.icon ? (
+        <img
+          src={button.icon}
+          alt={button.label}
+          style={{paddingRight: "5px", height: `${buttonSize}px`,width: `${buttonSize}px` }}
+        />
+      ) : (
+        <span className="placeholder-icon">Image</span>
+      )}
+      <span>{button.label}</span>
+    </a>
+    </div>
+  ))}
+  <div>
+  <a href="#bottom" className="scroll-button">
+    Contact
+  </a>
+  </div>
+</div>
+
+      {/* Text content */}
+      <div className="hero-banner__content" style={textStyle}>
+        <div className="hero-banner__main-text">
+     
+          <RichText
+            tagName="div"
+            placeholder={__('Enter text...', 'your-plugin')}
+            value={textSection}
+            
+            onChange={(value) => setAttributes({ textSection: value })}
+            formattingControls={[]}
+          />
+      
+        </div>
+
+        {/* Hours of operation text section */}
+        <div className="hero-banner__hours" style={{ fontSize: `${hoursSize}px`, color: hoursColor }}>
+          <RichText
+            tagName="div"
+            value={hoursOfOperation}
+            onChange={(value) => setAttributes({ hoursOfOperation: value })}
+          />
+        </div>
+
+        {/* CTA Button */}
+        {ctaButtonText && ctaButtonAnchor && (
+          <Button href={`#${ctaButtonAnchor}`}>{ctaButtonText}</Button>
+        )}
+      </div>
+      
+      {/* Social Media Links */}
+      <div className="hero-banner__social">
+        {/* Replace the social icons and links accordingly */}
+        {/* ... */}
+      </div>
+    </div>
+<div>
+        {/* Editor controls */}
+
+        <div>
 		<InspectorControls>
+    <PanelBody title={__('Text Settings', 'your-plugin')}>
+  <RangeControl
+    label={__('Text Size', 'your-plugin')}
+    value={textSize}
+    onChange={(value) => setAttributes({ textSize: value })}
+    min={10}
+    max={100}
+  />
+  <SelectControl
+    label={__('Font Family', 'your-plugin')}
+    value={selectedFont}
+    options={[
+      { label: 'Arial', value: 'Arial' },
+      { label: 'Helvetica', value: 'Helvetica' },
+      { label: 'Times New Roman', value: 'Times New Roman' },
+      // Add more fonts here
+    ]}
+    onChange={(value) => setAttributes({ selectedFont: value })}
+  />
+</PanelBody>
 		  {/* ... (your other inspector controls) */}
 		  <MediaUpload
 			onSelect={(media) => {
@@ -110,47 +213,53 @@ export default function Edit({attributes,setAttributes}) {
 			  </Button>
 			)}
 		  />
+  
+  <PanelBody title={__('Social Media Buttons', 'your-plugin')}>
+  <RangeControl
+  label={__('Button Size', 'your-plugin')}
+  value={buttonSize}
+  onChange={(value) => setAttributes({ buttonSize: value })}
+  min={10}
+  max={100}
+/>
+  {socialMediaButtons.map((button, index) => (
+    <div key={index} className="social-media-button">
+      <TextControl
+        label={__('Button URL', 'your-plugin')}
+        value={button.url}
+        onChange={(value) => handleSocialMediaButtonChange(index, 'url', value)}
+      />
+      <MediaUpload
+        onSelect={(media) => handleSocialMediaButtonChange(index, 'icon', media.url)}
+        allowedTypes={['image']}
+        render={({ open }) => (
+          <Button onClick={open}>
+            {button.icon ? (
+              <span>click to change image</span>
+            ) : (
+              __('Select Thumbnail', 'your-plugin')
+            )}
+          </Button>
+        )}
+      />
+      <TextControl
+        label={__('Button Label', 'your-plugin')}
+        value={button.label}
+        onChange={(value) => handleSocialMediaButtonChange(index, 'label', value)}
+      />
+    </div>
+  ))}
+</PanelBody>
 		</InspectorControls>
 	
 	  </div>
-
-	  <div className="hero-banner" style={{ backgroundImage: `url(${backgroundImage})` }}>
-      {/* Desktop background image */}
-      <div className="hero-banner__background" style={{ backgroundImage: `url(${backgroundImage})` }}>
-        {/* Text Section */}
-		<div className={`hero-banner__content hero-banner__content--${verticalAlignment}`}>
-  {/* Text Section */}
-  <div className="hero-banner__text">
-    <RichText.Content tagName="h1" value={textSection} />
-    <RichText.Content tagName="p" value={hoursOfOperation} />
-  </div>
-
-  {/* CTA Button */}
-  {ctaButtonText && ctaButtonAnchor && (
-    <Button href={`#${ctaButtonAnchor}`}>{ctaButtonText}</Button>
-  )}
-</div>
-      </div>
-
-      {/* Social Media Links */}
-      <div className="hero-banner__social">
-        {/* Replace the social icons and links accordingly */}
-        <a href="#" className="hero-banner__social-link">
-          <img src="facebook-icon.png" alt="Facebook" />
-        </a>
-        <a href="#" className="hero-banner__social-link">
-          <img src="twitter-icon.png" alt="Twitter" />
-        </a>
-        <a href="#" className="hero-banner__social-link">
-          <img src="instagram-icon.png" alt="Instagram" />
-        </a>
-      </div>
-    </div>
- 
-	<div>
-
-        {/* Editor controls */}
         <InspectorControls>
+        <PanelBody title={__('Fading Gradient Color', 'your-plugin')}>
+  <ColorPicker
+    color={gradientColor}
+    onChangeComplete={(value) => setAttributes({ gradientColor: value.hex })}
+  />
+</PanelBody>
 		<PanelBody title={__('Vertical Alignment', 'your-plugin')}>
   <SelectControl
     value={verticalAlignment}
@@ -167,6 +276,11 @@ export default function Edit({attributes,setAttributes}) {
               value={textSection}
               onChange={(value) => setAttributes({ textSection: value })}
             />
+              <ColorPicker
+    label={__('Text Color', 'your-plugin')}
+    color={textColor}
+    onChangeComplete={(color) => setAttributes({ textColor: color.hex })}
+  />
           </PanelBody>
 
           <PanelBody title={__('Hours of Operation', 'your-plugin')}>
@@ -175,7 +289,20 @@ export default function Edit({attributes,setAttributes}) {
               onChange={(value) => setAttributes({ hoursOfOperation: value })}
             />
           </PanelBody>
-
+          <PanelBody title={__('Hours of Operation', 'your-plugin')}>
+  <RangeControl
+    label={__('Text Size', 'your-plugin')}
+    value={hoursSize}
+    onChange={(value) => setAttributes({ hoursSize: value })}
+    min={10}
+    max={50}
+  />
+  <ColorPicker
+    label={__('Text Color', 'your-plugin')}
+    color={hoursColor}
+    onChangeComplete={(color) => setAttributes({ hoursColor: color.hex })}
+  />
+</PanelBody>
           <PanelBody title={__('Background Image', 'your-plugin')}>
             <MediaUpload
               onSelect={onSelectBackgroundImage}
@@ -214,17 +341,7 @@ export default function Edit({attributes,setAttributes}) {
           </PanelBody>
 
           {/* Social Media Links */}
-          <PanelBody title={__('Social Media Links', 'your-plugin')}>
-            {['Facebook', 'Twitter', 'Instagram'].map((platform, index) => (
-              <TextControl
-                key={platform}
-                label={platform}
-                value={socialMediaLinks[index] || ''}
-                onChange={(value) => onSelectSocialMediaLink(index, value)}
-              />
-            ))}
-            <Button onClick={saveSocialMediaLinks}>{__('Save Links', 'your-plugin')}</Button>
-          </PanelBody>
+
         </InspectorControls>
 
         {/* Frontend display */}

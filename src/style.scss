@@ -5,15 +5,36 @@
  * Replace them with your own styles or remove the file completely.
  */
 
+
 .wp-block-create-block-tempherobanner {
 	background-color: #21759b;
 	color: #fff;
 	padding: 2px;
+	height: 100%;
 }
+.scroll-button {
+
+
+	
+	padding: 10px 15px;
+	background-color: #ffffff;
+	color: #ffffff;
+	border-radius: 4px;
+	text-decoration: none;
+
+  }
 .hero-banner {
-	position: relative;
 	overflow: hidden;
 	height: 100vh;
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1;
+	background-size: cover;
+	background-position: center center;
+	min-height: auto;
+	max-height: auto;
   }
   .hero-banner__desktop {
 	position: absolute;
@@ -37,10 +58,26 @@
 	opacity: 0.2; /* Adjust the opacity as needed */
   }
   
-.hero-banner__content {
-	text-align: center;
+  .social-media-icon {
+	width: 24px; /* Adjust the width as needed */
+	height: 24px; /* Adjust the height as needed */
+	margin-right: 5px;
+	z-index: 2;
   }
-  
+  .image-uploader {
+	margin-top: 10px; /* Adjust margin as needed */
+	padding: 10px; /* Add padding for spacing */
+	background-color: #f9f9f9; /* Add a background color for visual separation */
+	border-radius: 4px; /* Add rounded corners for visual style */
+  }
+  .placeholder-icon {
+	width: 24px;
+	height: 24px;
+	background-color: #ccc;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 5px;
+  }
   /* Vertical alignment variations */
   .hero-banner__content--top {
 	align-items: flex-start;
@@ -49,8 +86,34 @@
   .hero-banner__content--center {
 	align-items: center;
   }
-  
+  .hero-banner__social {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+	display: flex;
+	z-index: 2	;
+  }
   .hero-banner__content--bottom {
 	align-items: flex-end;
   }
+  .hero-banner__overlay {
+	overflow: hidden;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1;
+  }
+  .hero-banner__content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	z-index: 1;
+  }
   
+  .hero-banner__main-text {
+	margin-bottom: 20px; /* Add spacing between main text and hours of operation */
+  }

@@ -11,6 +11,42 @@
 		"html": false
 	},
 	"attributes":  {
+		"hoursSize": {
+			"type": "number",
+			"default": 16 
+		  },
+		  "hoursColor": {
+			"type": "string",
+			"default": "#ffffff"
+		  },
+		"buttonSize": {
+			"type": "number",
+			"default": 24
+		  },
+		  "textColor": {
+			"type": "string",
+			"default": "#ffffff"
+		  },
+		"socialMediaButtons": {
+			"type": "array",
+			"default": [
+			  {
+				"url": "",
+				"icon": "",
+				"label": ""
+			  },
+			  {
+				"url": "",
+				"icon": "",
+				"label": ""
+			  },
+			  {
+				"url": "",
+				"icon": "",
+				"label": ""
+			  }
+			]
+		  },
 		"verticalAlignment": {
 			"type": "string",
 			"default": "center"
@@ -38,7 +74,19 @@
 		"ctaButtonAnchor": {
 		  "type": "string",
 		  "default": ""
-		}
+		},
+		"gradientColor": {
+			"type": "string",
+			"default": "rgba(0, 0, 0, 0.6)"
+		  },
+		  "textSize": {
+			"type": "number",
+			"default": "24"
+		  },
+		  "selectedFont": {
+			"type": "string",
+			"default": "Arial"
+		  }
 	  
 	},
 	"textdomain": "tempherobanner",
