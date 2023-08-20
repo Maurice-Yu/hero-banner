@@ -1,9 +1,9 @@
 {
-	"name": "tempherobanner",
-	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
-	"license": "GPL-2.0-or-later",
+	"name": "HeroBanner",
+	"version": "0.5",
+	"description": "A Custom Hero Banner",
+	"author": "Maurice Yu",
+	"license": "TBD",
 	"main": "build/index.js",
 	"scripts": {
 		"build": "wp-scripts build",
