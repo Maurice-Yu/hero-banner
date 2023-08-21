@@ -114,15 +114,15 @@ export default function Edit({attributes,setAttributes}) {
     style={{ backgroundImage: `url(${isMobile ? mobileBackgroundImage : backgroundImage})`}}
   ></div>
       <div className="hero-banner__overlay" style={{ backgroundColor: gradientColor }}></div>
-      <div className="hero-banner__social" >
+      <div className="hero-banner__social">
   {socialMediaButtons.map((button, index) => (
     <div >
-    <a key={index} href={button.url} className="social-media-link" style={{paddingRight: "5px", height: `${buttonSize}px`,width: `${buttonSize}px` }}>
+    <a key={index} href={button.url} className="social-media-link" style={{paddingTop: "27px" ,paddingRight: "13px", height: `${buttonSize}px`,width: `${buttonSize}px` }}>
       {button.icon ? (
         <img
           src={button.icon}
           alt={button.label}
-          style={{paddingRight: "5px", height: `${buttonSize}px`,width: `${buttonSize}px` }}
+          style={{paddingTop: "27px" ,paddingRight: "13px", height: `${buttonSize}px`,width: `${buttonSize}px` }}
         />
       ) : (
         <span className="placeholder-icon">Image</span>
@@ -131,11 +131,7 @@ export default function Edit({attributes,setAttributes}) {
     </a>
     </div>
   ))}
-  <div>
-  <a href="#bottom" className="scroll-button">
-    Contact
-  </a>
-  </div>
+
 </div>
 
       {/* Text content */}
@@ -146,7 +142,7 @@ export default function Edit({attributes,setAttributes}) {
             tagName="div"
             placeholder={__('Enter text...', 'your-plugin')}
             value={textSection}
-            
+            style = {{paddingLeft: "0px",paddingRight: "0px"}}
             onChange={(value) => setAttributes({ textSection: value })}
             formattingControls={[]}
           />
@@ -154,10 +150,12 @@ export default function Edit({attributes,setAttributes}) {
         </div>
 
         {/* Hours of operation text section */}
-        <div className="hero-banner__hours" style={{ fontSize: `${hoursSize}px`, color: hoursColor }}>
+        <div className="hero-banner__hours" style={{paddingLeft: "0px",paddingRight: "0px",fontSize: `${hoursSize}px`, color: hoursColor }}>
+          
           <RichText
             tagName="div"
             value={hoursOfOperation}
+            style={{position:"relative", paddingLeft: "0px",paddingRight: "0px", width:"100%"}}
             onChange={(value) => setAttributes({ hoursOfOperation: value })}
           />
         </div>

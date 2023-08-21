@@ -61,12 +61,12 @@ export default function save({attributes}) {
       <div className="hero-banner__social" >
   {socialMediaButtons.map((button, index) => (
     <div >
-    <a key={index} href={button.url} className="social-media-link" style={{paddingRight: "5px", height: `${buttonSize}px`,width: `${buttonSize}px` }}>
+    <a key={index} href={button.url} className="social-media-link" style={{paddingTop: "27px" ,paddingRight: "13px", height: `${buttonSize}px`,width: `${buttonSize}px` }}>
       {button.icon ? (
         <img
           src={button.icon}
           alt={button.label}
-          style={{paddingRight: "5px", height: `${buttonSize}px`,width: `${buttonSize}px` }}
+          style={{paddingTop: "27px" ,paddingRight: "13px", height: `${buttonSize}px`,width: `${buttonSize}px` }}
         />
       ) : (
         <span className="placeholder-icon">Image</span>
@@ -75,24 +75,20 @@ export default function save({attributes}) {
     </a>
     </div>
   ))}
-  <div>
-  <a href="#bottom" className="scroll-button">
-    Contact
-  </a>
-  </div>
+
 </div>
 
       {/* Text content */}
       <div className="hero-banner__content" style={textStyle}>
-        <div className="hero-banner__main-text">
+        <div className="hero-banner__main-text" style={{paddingLeft: "0px",paddingRight: "0px"}}>
      
-		<RichText.Content tagName="div" value={textSection} />
+		<RichText.Content tagName="div" value={textSection} style={{paddingLeft: "0px",paddingRight: "0px"}} />
       
         </div>
 
         {/* Hours of operation text section */}
-        <div className="hero-banner__hours" style={{ fontSize: `${hoursSize}px`, color: hoursColor }}>
-		<RichText.Content tagName="div" value={hoursOfOperation} />
+        <div className="hero-banner__hours" style={{paddingLeft: "0px",paddingRight: "0px",fontSize: `${hoursSize}px`, color: hoursColor }}>
+		<RichText.Content tagName="div"  value={hoursOfOperation} />
         </div>
 
         {/* CTA Button */}
